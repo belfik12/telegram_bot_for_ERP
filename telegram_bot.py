@@ -199,27 +199,16 @@ async def typ(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
                         await query.edit_message_text(text=f'is -{drive[0]}-correct?',reply_markup=reply_markup)
                         break
 
-                        #if update.message.text == 'y':
-                            #print('success')
-                        #break
-                        #if inpt=='yes' or inpt=='y':
-                            #employement_typ=driver[2]
-                            #driver_id=driver[3]
-                            #phone=driver[1]
-                            #driver_nam=driver[0]
-                            #break
+                        
 
                     n=""
                     d=""
-                        #inpt=input(f'is -{driver[0]}-correct? enter yes or y if: ')
             except Exception as e:
                 print(str(e))
                 pass            
         
-        #plate_num=input('enter plate number: ')
-        #milage=input('enter milage: ')
-        #return ent
-        return ent #\\ConversationHandler.END
+        
+        return ent 
     else:
         test.append(update.message.text)
         user=update.message.from_user
@@ -234,15 +223,15 @@ async def typ(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
         ]
             ]
         reply_markup = InlineKeyboardMarkup(keyboard)
-        #driver_nam=input('enter diver name: ')
+       
         with open('drivers_info.csv','r') as c:
             csv_reader=csv.reader(c)
 
             try:
                 for drive in csv_reader:
-                        #print(driver)
+                        
                     for i in drive[0][1:]:
-                        #print(drive[0][1:])
+                       
                         if d:
                             if i not in "aeiou" and d[-1]!=i:
                                 d+=i
@@ -260,32 +249,19 @@ async def typ(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
                                 n+=i
                     
                     first=(drive[0][0]+d).split(' ')[0]
-                    #print(first)
+                    
                     first1=(test[1][0]+n).split(' ')[0]
-                    #print(first1)
+                  
                     if first.capitalize()==first1.capitalize():
-                        #global driver_info
+                
                         driver_info=[test[2],drive[0],test[3],drive[2],drive[3],drive[1],test[4],test[5]]
-                        #print(driver_info)
                         await update.message.reply_text(text=f'is -{drive[0]}-correct?',reply_markup=reply_markup)
-                        #[plate_num,driver_nam,milage,employement_typ,driver_id,phone,fuel_amt,fuel_typ]
-                        
                         
                         break
 
-                        #if update.message.text == 'y':
-                            #print('success')
-                        #break
-                        #if inpt=='yes' or inpt=='y':
-                            #employement_typ=driver[2]
-                            #driver_id=driver[3]
-                            #phone=driver[1]
-                            #driver_nam=driver[0]
-                            #break
 
                     n=""
                     d=""
-                        #inpt=input(f'is -{driver[0]}-correct? enter yes or y if: ')
             except Exception as e:
                 print(str(e))
                 pass 
@@ -368,11 +344,7 @@ from telegram import Bot
 def main() -> None:
     """Run the bot."""
     # Create the Application and pass it your bot's token.
-    application = Application.builder().token("5822285485:AAHHvhqzKytz6GJ9kk7KQj9-kAHI3m6APfo").read_timeout(300).write_timeout(300).build()
-    #tok='5822285485:AAHHvhqzKytz6GJ9kk7KQj9-kAHI3m6APfo'
-    
-    #updater=Updater()
-    #application=Application(updater=updater).builder().build()
+    application = Application.builder().token("enter your telegram api token").read_timeout(300).write_timeout(300).build()
     conv_handler = ConversationHandler(
         entry_points=[CommandHandler("start", start)],
         states={
@@ -392,22 +364,9 @@ def main() -> None:
     
     )
     
-    #conv_handler1=ConversationHandler(
-        #entry_points=[CommandHandler('test1',dri)],
-        #states={
-            #enter: [MessageHandler(filters.TEXT & ~filters.COMMAND, confirm)]
-            #},
-        #fallbacks=[CommandHandler("end", cancel)],
-    #)
-    
-
     application.add_handler(conv_handler)
-    #application.add_handler(conv_handler1)
     
-    # Run the bot until the user presses Ctrl-C
     application.run_polling(allowed_updates=Update.ALL_TYPES,timeout=60)
     
-
-
 if __name__ == "__main__":
     main()
