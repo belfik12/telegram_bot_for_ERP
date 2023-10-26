@@ -338,9 +338,7 @@ async def cancel(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
 
     return ConversationHandler.END
 
-import time
-from telegram.ext import Updater
-from telegram import Bot
+
 def main() -> None:
     """Run the bot."""
     # Create the Application and pass it your bot's token.
